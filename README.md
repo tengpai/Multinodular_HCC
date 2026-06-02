@@ -12,19 +12,6 @@ The radiomic feature extraction, deep-learning feature extraction, habitat clust
 
 > **Code scope.** This release covers the core **imaging pipeline** — five-score construction (`01_score_construction/`) and fusion modeling, risk stratification, subgroup analysis, and NRI/IDI/time-dependent AUC (`02_fusion_model/`). Other analyses described in the manuscript were performed with standard, publicly available open-source libraries and are not separately scripted here because they are fully specified in the Methods and reproducible from the released component-score table: SHAP and permutation-importance interpretability (`shap`, `scikit-learn`), bootstrap C-index confidence intervals and pairwise comparisons (`numpy`/`scipy` + `lifelines`), generalization-degradation summaries (arithmetic on reported C-indices), and inter-score correlation/variance-inflation-factor analysis (`pandas`/`scipy`, `statsmodels`). The whole-exome sequencing (WES) construct-validity analyses were post-hoc and exploratory and were performed with standard genomics tools (per-nodule somatic-mutation calling, MATH/Shannon clonal-diversity, Jaccard clonal-origin, and mutational-signature analysis); the genomic analysis scripts and sequencing data are **not** included in this repository (consistent with patient-privacy and third-party sequencing-vendor constraints). See Data Availability.
 
-## Five-Dimensional Fusion Score
-
-| Score | Dimension | Backbone | Multi-nodule aggregation | Selector |
-|-------|-----------|----------|--------------------------|----------|
-| Clinical_Score | Macroscopic tumor burden | — | patient-level | Multivariable Cox |
-| Rad_Diff | Inter-tumor radiomic heterogeneity | PyRadiomics (5502/nodule) | CV + Range across nodules | LASSO-Cox (λ_min) → 12 features |
-| DL_MaxPooling | Extreme malignant phenotype | ResNet50 (ImageNet) | Max-pooling across nodules | Elastic Net-Cox (α=0.5) → 21 features |
-| DL_Heterogeneity | Inter-tumor deep-feature dispersion | DenseNet121 (ImageNet) | SD + Range across nodules | Elastic Net-Cox (α=0.5) → 3 features |
-| Habitat_MaxH1 | Intratumoral microenvironment | K-means (K=3), portal phase | Max across nodules (H1 necrotic core) | LASSO-Cox (λ_min) → 19 features |
-
-`Fusion = 0.304·Clinical_Z + 0.234·Rad_Diff_Z + 0.192·DL_Het_Z + 0.230·DL_MaxP_Z + 0.143·Habitat_Z`
-
-(Coefficients are the training-set multivariable Cox coefficients; risk cutoff = training-set median of the fusion score.)
 
 ## Repository Structure
 
@@ -71,29 +58,6 @@ onekey_HCC_multinodular/
     └── time_dependent_idi_nri.py            #   NRI / IDI / time-dependent AUC
 ```
 
-## Key Parameters (consistent with the manuscript)
-
-| Parameter | Value |
-|-----------|-------|
-| Resampling | 1×1×1 mm³, B-spline interpolation |
-| Intensity discretization | Fixed bin width = 25 HU |
-| Window level/width | 50/350 HU |
-| Intensity truncation | −100 to 400 HU |
-| Correlation filter | \|r\| > 0.90 |
-| LASSO-Cox | 10-fold CV, λ_min |
-| Elastic Net | α = 0.5 (L1+L2) |
-| Habitat K-means | K = 3 (mean silhouette 0.348), portal venous phase |
-| DL backbones evaluated | VGG16, ResNet18, ResNet50, DenseNet121 (5-fold CV) |
-| Risk cutoff | Training-set median of fusion score |
-
-## Cohorts
-
-- Training set: n = 282 (Center I, surgical, RFS)
-- Test set 1: n = 113 (Centers II/III, surgical, RFS)
-- Test set 2: n = 491 (three centers, nonsurgical, PFS)
-- Car-Hero biological-validation cohort: n = 38 (26 patients / 54 nodules with paired WES; genomic analysis described in the manuscript, code not included here)
-
-The training/test1/test2 assignment is a fixed geographic/clinical split (center + surgical status). The internal train/validation resampling in the data-split notebook (`Step0_data_split.ipynb`) operates only on the training-set partition for model development; it does **not** redefine the external validation cohorts on which the reported performance metrics are computed.
 
 ## Dependencies
 
@@ -123,6 +87,3 @@ Hospital of Guangxi Medical University. See `LICENSE.txt`. Third-party packages
 (PyRadiomics, PyTorch/torchvision, lifelines, scikit-survival, etc.) remain under
 their own licenses.
 
-## Citation
-
-[Manuscript citation to be added upon publication]
