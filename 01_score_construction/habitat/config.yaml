@@ -1,0 +1,26 @@
+# ----------------------------------------------------------------------- #
+#                               YAML file syntax                          #
+#                       http://medai.icu/thread/677                       #
+# ----------------------------------------------------------------------- #
+# Habitat sub-region data directory (H1/H2/H3 masks + images); upstream OneKey output
+radio_dir: <HABITAT_DATA_ROOT>\data_for_analysis
+# Label file; must contain the cohort (group), event, and duration columns
+label_file: <PROJECT_ROOT>\sol21_habitat_survival\data\label.csv
+# Column name used to indicate the cohort (train / test1 / test2)
+dataset_column: group
+# Death/recurrence status column (no nulls)
+event_col: event
+# Survival time column
+duration_col: duration
+# Univariable Cox screening p-value threshold
+pvalue: 0.05
+# Habitat sub-region labels (K=3 clustering): 1=H1, 2=H2, 3=H3
+habitats: [1, 2, 3]
+# Clinical variables (must not contain label/group columns)
+clinic_file: <PROJECT_ROOT>\sol21_habitat_survival\data\clinical.csv
+# Cohort set
+subsets: [train, test1, test2]
+# Basic settings
+font.size: 12
+DISABLE_VIDEO: True
+PAPER_TMP: HabitatSur

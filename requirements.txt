@@ -1,0 +1,37 @@
+# Core dependencies for onekey_HCC_multinodular
+# Python >= 3.9
+#
+# Reference environment (used to produce the reported statistical results):
+#   Python 3.13.5, lifelines 0.30.3, scikit-survival 0.22.x, scikit-learn 1.2+,
+#   PyRadiomics 3.0.1, torch/torchvision (ImageNet-pretrained ResNet50/DenseNet121).
+# The OneKey-platform feature-extraction/selection notebooks were run in the OneKey
+# environment; the fusion/statistics .py scripts were run in the above reference
+# environment. The version pins below are minimums and are satisfied by that setup.
+
+# Radiomic feature extraction
+pyradiomics==3.0.1
+
+# Deep learning (ImageNet-pretrained models)
+torch>=1.12.0
+torchvision>=0.13.0
+
+# Survival analysis
+lifelines>=0.27.0
+scikit-survival>=0.22.0
+
+# Machine learning & statistics
+scikit-learn>=1.2.0
+scipy>=1.9.0
+numpy>=1.23.0
+pandas>=1.5.0
+
+# Visualization
+matplotlib>=3.6.0
+seaborn>=0.12.0
+
+# Data imputation
+missingpy>=0.2.0  # MissForest implementation
+
+# Medical image I/O (radiomic feature extraction)
+SimpleITK>=2.2.0
+nibabel>=4.0.0
