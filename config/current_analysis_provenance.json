@@ -1,0 +1,124 @@
+{
+  "habitat_selection": {
+    "candidate": "max-H2",
+    "best_alpha_ratio": 0.5623413251903491,
+    "oof_cindex": 0.6244224609541087,
+    "mean_n_features": 7.8,
+    "fold_cindex_sd": 0.027407331433961207,
+    "rule": "Highest pooled Train OOF Harrell C-index; candidates within 0.005 use fewer mean fold-selected features, lower fold C-index SD, then frozen order.",
+    "locked_at": "2026-07-21T03:25:05.239984+00:00",
+    "run_signature": "EF95D4770FA7441089A3D3EA12756777AD28B3AC19DFA023EFD13FD00CE41B0F",
+    "nested_cv_pooled_cindex": 0.6113551971427762,
+    "nested_candidate_frequency": {
+      "max-H3": 2,
+      "max-Merged": 1,
+      "max-H2": 1,
+      "min-H1": 1
+    }
+  },
+  "source_code": [
+    {
+      "module": "current_analysis/habitat_train_only.py",
+      "source_file": "run_habitat_train_only.py",
+      "original_sha256": "4ba372147a11ef6f3cf9e46c33ac71f5c637e72e6d9cd4dd63866837644b79f0",
+      "preserved_functions": [
+        "utc_now",
+        "sha256",
+        "normalize_id",
+        "package_versions",
+        "atomic_bytes",
+        "write_json",
+        "write_pickle",
+        "write_csv",
+        "read_pickle",
+        "setup_logger",
+        "candidate_name",
+        "harrell_c",
+        "script_sha256",
+        "run_signature",
+        "define_candidates",
+        "load_cohort_identifiers",
+        "load_train_endpoints",
+        "audit_inputs",
+        "fixed_folds",
+        "aggregate_and_save",
+        "prepare",
+        "survival_array",
+        "fit_preprocessor",
+        "transform_preprocessor",
+        "correlation_filter",
+        "univariate_filter",
+        "alpha_max_from_training",
+        "fit_at_ratio",
+        "tune_candidate",
+        "choose_candidate",
+        "candidate_frame",
+        "checkpoint_path",
+        "load_checkpoint",
+        "save_checkpoint",
+        "run_candidate_oof",
+        "run_nested_cv",
+        "jaccard_rows",
+        "artifact_record",
+        "select",
+        "main"
+      ],
+      "changes": "CLI paths replace workstation paths; scientific functions unchanged."
+    },
+    {
+      "module": "current_analysis/fusion_locked_core.py",
+      "source_file": "run_fusion_locked_core_evaluation.py",
+      "original_sha256": "dec135eed36546f5457ca067e1e8a5cbad71bc26caa3144dd346345ae022e532",
+      "preserved_functions": [
+        "utc_now",
+        "sha256",
+        "package_versions",
+        "write_json",
+        "c_index",
+        "verify_habitat_lock",
+        "transform_habitat",
+        "build_clinical_scores",
+        "fit_model",
+        "main"
+      ],
+      "changes": "CLI paths replace workstation paths; scientific functions unchanged."
+    },
+    {
+      "module": "current_analysis/fusion_statistics.py",
+      "source_file": "run_fusion_final_statistics.py",
+      "original_sha256": "029fd74e58ebb748ab19efb457f90e7442ed59a214971b627dfd0e870be177e3",
+      "preserved_functions": [
+        "cindex",
+        "bootstrap",
+        "quantile_interval",
+        "risk_stratification",
+        "main"
+      ],
+      "changes": "CLI paths replace workstation paths; scientific functions unchanged."
+    },
+    {
+      "module": "current_analysis/complementarity.py",
+      "source_file": "run_fusion_complementarity_analysis.py",
+      "original_sha256": "99490297ae309bcd17945efd63a404f9b2fcd717b8b45e73e4c46124a207802a",
+      "preserved_functions": [
+        "sha256",
+        "c_index",
+        "standardize_from_train",
+        "fit_joint_cox",
+        "correlation_outputs",
+        "vif_output",
+        "analytic_shap",
+        "permutation_importance",
+        "main"
+      ],
+      "changes": "CLI paths replace workstation paths; scientific functions unchanged."
+    },
+    {
+      "module": "current_analysis/probability_diagnostics.py",
+      "source_file": "run_fusion_p1_diagnostics.py",
+      "original_sha256": "85ed11aa130fc5a3049e39f12170fdb689ef83dc21a68540132e5d4532869051",
+      "changes": "CLI paths; numeric Schoenfeld PH tests replace check_assumptions return-value status; event-probability column label corrected; calibration/IBS calculations unchanged."
+    }
+  ],
+  "code_port_policy": "Original scientific functions retained except the documented correction to PH status reporting. Re-running a portable script creates a new run signature; it cannot reuse the old preparation checkpoint signature."
+}

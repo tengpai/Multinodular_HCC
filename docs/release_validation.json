@@ -1,0 +1,52 @@
+{
+  "release_date": "2026-10-16",
+  "validation_scope": "Portable current max-H2 code against restricted archived inputs; no raw-feature retraining or clinical re-imputation.",
+  "cohort_counts": {
+    "train": 282,
+    "test1": 113,
+    "test2": 491
+  },
+  "fusion_reconstruction_maximum_numeric_difference": 3.552713678800501e-15,
+  "frozen_inference_maximum_absolute_score_difference": 1.3322676295501878e-15,
+  "frozen_clinical_score_maximum_absolute_difference": 1.7763568394002505e-15,
+  "five_score_cindex": {
+    "train": 0.7033929533150033,
+    "test1": 0.6043022415039768,
+    "test2": 0.6137276600935858
+  },
+  "clinical_benchmark_reproduction": [
+    {
+      "file": "cohort_cindex.csv",
+      "rows": 24,
+      "maximum_numeric_difference": 0.0
+    },
+    {
+      "file": "paired_cindex_differences.csv",
+      "rows": 48,
+      "maximum_numeric_difference": 0.0
+    }
+  ],
+  "fusion_stage_internal_validation": {
+    "apparent": 0.7033929533150033,
+    "mean_optimism": 0.005925373935016126,
+    "corrected": 0.6974675793799872,
+    "requested_replicates": 1000,
+    "successful_replicates": 1000,
+    "seed": 7,
+    "penalizer": 0.01,
+    "component_scores_fixed": true,
+    "entire_feature_selection_pipeline_repeated": false,
+    "failures": []
+  },
+  "synthetic_unit_tests": {
+    "passed": 14,
+    "command": "python -m unittest discover -s tests -v"
+  },
+  "archived_notebooks_without_outputs": 18,
+  "limits": [
+    "Raw-feature habitat selection was not rerun for this release.",
+    "OneKey notebooks require the original proprietary environment.",
+    "Historical clinical-imputation execution provenance remains unresolved.",
+    "No patient-level data are included."
+  ]
+}
